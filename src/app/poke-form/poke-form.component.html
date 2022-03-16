@@ -1,0 +1,19 @@
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="pokemon-select">Select Pokemon</label>
+            <select name='pokemon-select' id="pokemon-select" (change)="selectMe($event.target)">
+                <option *ngFor="let name of pokemonList">{{ name }}</option>
+            </select>
+        </div>
+    </form>
+
+
+    <div *ngFor="let poke of pokemon">
+        <h2>{{poke.name}}</h2>
+        <img [src]="poke.img" alt="picture of pokemon">
+        <div *ngFor="let each of poke.moves">
+            <h4>{{each.move.name}}</h4>
+        </div>
+    </div>
+</div>
