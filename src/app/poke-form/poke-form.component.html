@@ -1,19 +1,25 @@
-<div class="container">
-    <form>
+<div class="container m-auto text-center">
+    <form class="form">
         <div class="form-group">
-            <label for="pokemon-select">Select Pokemon</label>
-            <select name='pokemon-select' id="pokemon-select" (change)="selectMe($event.target)">
+            <label for="pokemon-select" class="mx-2">Select Pokemon</label>
+            <select name='pokemon-select' id="pokemon-select" class="mx-2" (change)="selectMe($event.target)">
                 <option *ngFor="let name of pokemonList">{{ name }}</option>
             </select>
         </div>
     </form>
 
 
-    <div *ngFor="let poke of pokemon">
-        <h2>{{poke.name}}</h2>
-        <img [src]="poke.img" alt="picture of pokemon">
-        <div *ngFor="let each of poke.moves">
-            <h4>{{each.move.name}}</h4>
+    <div class="container" *ngFor="let poke of pokemon">
+        <div class="row">
+            <img [src]="poke.img" class="col-2 m-auto" alt="picture of pokemon">
+        </div>
+
+        <div class="row mt-3">
+            <h2 class="col m-auto" >Moves</h2>
+        </div>
+
+        <div class="row mt-3">
+            <h6 class="col-2 m-2" *ngFor="let each of poke.moves" >{{each.move.name}}</h6>
         </div>
     </div>
 </div>

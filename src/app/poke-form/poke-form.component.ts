@@ -13,16 +13,21 @@ export class PokeFormComponent implements OnInit {
     private ApiService: ApiService,
   ) { }
 
-  ngOnInit(): void {
-    this.catchEm();
-  }
-
-  pokemonList: any = [];
+  pokemonList: any = ['bulbasaur'];
   moveList: any = [];
   pokemon: any = [{img: '', name: '', moves: []}];
+
+  ngOnInit(): void {
+    this.catchEm();
+    setTimeout(() => (
+    this.firstPoke(this.pokemonList[0])), 50)
+  }
+
+  
   component: any = PokemonComponent;
 
   async catchEm () {
+    this.pokemonList = [];
     const response = await this.ApiService.getPokemonList();
     for (let poke of response) {
       this.pokemonList.push(poke.name)
@@ -31,8 +36,23 @@ export class PokeFormComponent implements OnInit {
     console.log(this.pokemonList)
   }
 
+  async firstPoke (name: string) {
+    console.debug(this.firstPoke)
+    const res = await this.ApiService.getPokemonInfo(name);
+    const { moves, sprites } = res;
+    for (let move of moves) {
+      this.moveList.push(move);
+    }
+
+    this.pokemon = [{img: sprites.front_shiny, name: name, moves: this.moveList}];
+
+    console.log(this.pokemon)
+    console.log(this.moveList)
+  }
+
   async selectMe (name: any) {
     console.log(name.value);
+    this.moveList = [];
     const res = await this.ApiService.getPokemonInfo(`${name.value}`);
     const { moves, sprites } = res;
     for (let move of moves) {
